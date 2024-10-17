@@ -21,7 +21,7 @@ public class EmployeeServiceImplTest {
     private EmployeeServiceImpl employeeService;
 
     @Mock
-    private EmployeeDAO employeeDAO; // Crée un mock pour EmployeeDAO
+    private EmployeeDAO employeeDAO;
 
     @Test
     public void saveEmployee() {
@@ -47,5 +47,46 @@ public class EmployeeServiceImplTest {
         verify(employeeDAO, times(1)).delete(employee);
     }
 
+    @Test
+    public void calculateFamilyAllowance_Under6000() {
+        double allowance = employeeService.calculateFamilyAllowance(5, 5000);
+        assertEquals(1200.0, allowance, 0.01); // 3 * 300 + 2 * 150
+    }
 
+    @Test
+    public void calculateFamilyAllowance_Above8000() {
+        double allowance = employeeService.calculateFamilyAllowance(5, 9000);
+        assertEquals(1450.0, allowance, 0.01); // 3 * 200 + 2 * 110
+    }
+
+    @Test
+    public void calculateFamilyAllowance_Exactly6000() {
+        double allowance = employeeService.calculateFamilyAllowance(5, 6000);
+        assertEquals(1200.0, allowance, 0.01); // 3 * 300 + 2 * 150
+    }
+
+    @Test
+    public void enterFamilyAllowanceForEmployee_ValidEmployee() {
+        Long employeeId = 1L;
+        Employee employee = new Employee();
+        employee.setName("John Doe");
+        employee.setSalary(5000);
+
+        when(employeeDAO.findById(employeeId)).thenReturn(Optional.of(employee));
+
+        employeeService.enterFamilyAllowanceForEmployee(employeeId, 4);
+
+        verify(employeeDAO, times(1)).findById(employeeId);
+    }
+
+    @Test
+    public void enterFamilyAllowanceForEmployee_InvalidEmployee() {
+        Long employeeId = 1L;
+
+        when(employeeDAO.findById(employeeId)).thenReturn(Optional.empty());
+
+        employeeService.enterFamilyAllowanceForEmployee(employeeId, 4);
+
+        verify(employeeDAO, times(1)).findById(employeeId);
+    }
 }
