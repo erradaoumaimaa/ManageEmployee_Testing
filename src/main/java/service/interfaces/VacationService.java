@@ -22,4 +22,5 @@ public interface VacationService {
     void approveVacation(Long vacationId) throws Exception;
     void rejectVacation(Long vacationId) throws Exception;
 
+
 }
