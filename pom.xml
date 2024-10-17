@@ -1,23 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>ManageEmployees</groupId>
   <artifactId>ManageEmployees</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <!-- Versions centralisées -->
   <properties>
     <hibernate.version>5.5.0.Final</hibernate.version>
     <postgresql.version>42.7.2</postgresql.version>
     <jpa.version>2.2</jpa.version>
     <slf4j.version>1.7.30</slf4j.version>
-    <junit.version>4.13.2</junit.version>
+    <junit.version>5.8.1</junit.version>
     <servlet.version>4.0.1</servlet.version>
     <jsp.version>2.3.3</jsp.version>
-    <jstl.version>1.1.2</jstl.version>
+    <jstl.version>1.2</jstl.version>
     <mockito.version>5.3.1</mockito.version>
     <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
     <maven.war.plugin.version>3.2.3</maven.war.plugin.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
   <dependencies>
@@ -42,7 +45,7 @@
       <version>${jpa.version}</version>
     </dependency>
 
-    <!-- Logging (facultatif) -->
+    <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -56,20 +59,37 @@
 
     <!-- JUnit (tests unitaires) -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
 
-    <!-- Mockito (tests unitaires) -->
     <dependency>
       <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
+      <artifactId>mockito-junit-jupiter</artifactId>
       <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+      <version>1.14.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy-agent</artifactId>
+      <version>1.14.4</version>
+      <scope>test</scope>
+    </dependency>
 
     <!-- Servlet API -->
     <dependency>
@@ -87,14 +107,9 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>taglibs</groupId>
-      <artifactId>standard</artifactId>
-      <version>${jstl.version}</version>
-    </dependency>
-    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
-      <version>1.2</version>
+      <version>${jstl.version}</version>
     </dependency>
 
     <dependency>
@@ -102,7 +117,6 @@
       <artifactId>javax.mail</artifactId>
       <version>1.6.2</version>
     </dependency>
-
   </dependencies>
 
   <build>
@@ -112,7 +126,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven.compiler.plugin.version}</version>
         <configuration>
-          <release>22</release>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
 
@@ -120,6 +135,13 @@
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>${maven.war.plugin.version}</version>
+      </plugin>
+
+      <!-- Maven Surefire Plugin for testing -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
       </plugin>
     </plugins>
   </build>

@@ -22,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 @WebServlet("/vacation")
 @MultipartConfig
@@ -51,7 +52,7 @@ public class VacationController extends HttpServlet {
                 showAddForm(request, response);
                 break;
             case "edit":
-                showEditForm(request, response);
+//                showEditForm(request, response);
                 break;
             case "approve":
                 approveVacation(request, response);
@@ -61,7 +62,7 @@ public class VacationController extends HttpServlet {
                 break;
             case "list":
             default:
-                listVacations(request, response);
+//                listVacations(request, response);
                 break;
         }
     }
@@ -84,17 +85,17 @@ public class VacationController extends HttpServlet {
                 rejectVacation(request, response);
                 break;
             default:
-                listVacations(request, response);
+//                listVacations(request, response);
                 break;
         }
     }
 
     // Méthode pour lister les vacances
-    private void listVacations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Vacation> vacations = vacationService.findAllVacations();
-        request.setAttribute("vacations", vacations);
-        request.getRequestDispatcher("/WEB-INF/views/vacation/vacationList.jsp").forward(request, response);
-    }
+//    private void listVacations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        List<Vacation> vacations = vacationService.findAllVacations();
+//        request.setAttribute("vacations", vacations);
+//        request.getRequestDispatcher("/WEB-INF/views/vacation/vacationList.jsp").forward(request, response);
+//    }
 
     // Méthode pour afficher le formulaire d'ajout de congé
     private void showAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -102,12 +103,12 @@ public class VacationController extends HttpServlet {
     }
 
     // Méthode pour afficher le formulaire de modification de congé
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Long vacationId = Long.parseLong(request.getParameter("id"));
-        Vacation vacation = vacationService.findVacationById(vacationId);
-        request.setAttribute("vacation", vacation);
-        request.getRequestDispatcher("/WEB-INF/views/vacation/editVacation.jsp").forward(request, response);
-    }
+//    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        Long vacationId = Long.parseLong(request.getParameter("id"));
+//        Vacation vacation = vacationService.findVacationById(vacationId);
+//        request.setAttribute("vacation", vacation);
+//        request.getRequestDispatcher("/WEB-INF/views/vacation/editVacation.jsp").forward(request, response);
+//    }
 
     // Méthode pour sauvegarder un congé
     private void saveVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
