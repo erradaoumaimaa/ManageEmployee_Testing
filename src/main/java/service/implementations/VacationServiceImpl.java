@@ -7,6 +7,7 @@ import entities.Employee;
 import entities.Vacation;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,8 +61,9 @@ public class VacationServiceImpl implements VacationService {
         if (vacation.getStartDate().isAfter(vacation.getEndDate())) {
             throw new IllegalArgumentException("La date de début doit être avant la date de fin.");
         }
-        return (int) (java.time.Duration.between(vacation.getStartDate().atStartOfDay(), vacation.getEndDate().plusDays(1).atStartOfDay()).toDays());
+        return (int) ChronoUnit.DAYS.between(vacation.getStartDate(), vacation.getEndDate()) + 1;
     }
+
 
     @Override
     public boolean isOverlapping(Employee employee, Vacation vacation) {
