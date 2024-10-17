@@ -6,15 +6,15 @@
 
     <persistence-unit name="employee-management-unit">
         <!-- JPA entity classes -->
-        <class>models.Employee</class>
-        <class>models.Admin</class>
-        <class>models.Recruiter</class>
-        <class>models.JobOffer</class>
-
+        <class>entities.User</class>
+        <class>entities.Admin</class>
+        <class>entities.Employee</class>
+        <class>entities.Recruiter</class>
+        <class>entities.Vacation</class>
         <properties>
             <!-- JDBC Connection settings -->
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/manageEmployees"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/breif_employees"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="admin"/>
 

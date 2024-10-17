@@ -11,7 +11,7 @@ public class JpaUtil {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("employee-management-unit");
         } catch (Throwable ex) {
-            throw new ExceptionInInitializerError("Échec de la création de l'EntityManagerFactory : " + ex);
+            throw new ExceptionInInitializerError("error de la création de l'EntityManagerFactory : " + ex);
         }
     }
 

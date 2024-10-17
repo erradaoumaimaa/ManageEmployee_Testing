@@ -12,7 +12,6 @@
 
   <servlet>
     <servlet-name>JobOfferServlet</servlet-name>
-    <servlet-class>controllers.JobOfferController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>JobOfferServlet</servlet-name>
