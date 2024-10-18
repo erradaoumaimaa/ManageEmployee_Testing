@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">main</a> &gt; <span class="el_source">Main.java</span></div><h1>Main.java</h1><pre class="source lang-java linenums">package main;
+
+import entities.Employee;
+import entities.Vacation;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.time.LocalDate;
+
+<span class="nc" id="L11">public class Main {</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L14">        EntityManagerFactory entityManagerFactory = null;</span>
+<span class="nc" id="L15">        EntityManager entityManager = null;</span>
+
+        try {
+<span class="nc" id="L18">            entityManagerFactory = Persistence.createEntityManagerFactory(&quot;employee-management-unit&quot;);</span>
+<span class="nc" id="L19">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L20">            entityManager.getTransaction().begin();</span>
+
+            // Connexion réussie
+<span class="nc" id="L23">            System.out.println(&quot;Connexion à la base de données réussie!&quot;);</span>
+
+            // Étape 1 : Créer un employé avec les champs corrects
+<span class="nc" id="L26">            Employee employee = new Employee();</span>
+<span class="nc" id="L27">            employee.setName(&quot;John Doe&quot;);</span>
+<span class="nc" id="L28">            employee.setSSN(&quot;123-45-6789&quot;);</span>
+<span class="nc" id="L29">            employee.setBirthDate(LocalDate.of(1985, 6, 15));</span>
+<span class="nc" id="L30">            employee.setPassword(&quot;password123&quot;);</span>
+<span class="nc" id="L31">            employee.setHireDate(LocalDate.of(2010, 1, 1));</span>
+<span class="nc" id="L32">            employee.setNumberOfChildren(2);</span>
+<span class="nc" id="L33">            employee.setSalary(50000.00);</span>
+<span class="nc" id="L34">            employee.setEmail(&quot;john.doe@example.com&quot;);</span>
+<span class="nc" id="L35">            employee.setPhone(&quot;555-1234&quot;);</span>
+<span class="nc" id="L36">            employee.setDepartment(&quot;IT&quot;);</span>
+<span class="nc" id="L37">            employee.setPosition(&quot;Software Engineer&quot;);</span>
+<span class="nc" id="L38">            employee.setVacationTaken(0);</span>
+<span class="nc" id="L39">            employee.setVacationDays(20);</span>
+            // Persister l'employé dans la base
+<span class="nc" id="L41">            entityManager.persist(employee);</span>
+
+            // Étape 2 : Créer une vacation liée à cet employé
+<span class="nc" id="L44">            Vacation vacation = new Vacation();</span>
+<span class="nc" id="L45">            vacation.setEmployee(employee);</span>
+<span class="nc" id="L46">            vacation.setStartDate(LocalDate.of(2024, 10, 1));</span>
+<span class="nc" id="L47">            vacation.setEndDate(LocalDate.of(2024, 10, 10));</span>
+<span class="nc" id="L48">            vacation.setReason(&quot;Vacances annuelles&quot;);</span>
+<span class="nc" id="L49">            vacation.setDocument(&quot;vacation_doc.pdf&quot;);</span>
+            // Persister la vacation
+<span class="nc" id="L51">            entityManager.persist(vacation);</span>
+
+            // Commit de la transaction
+<span class="nc" id="L54">            entityManager.getTransaction().commit();</span>
+
+            // Affichage de confirmation
+<span class="nc" id="L57">            System.out.println(&quot;Vacation ajoutée avec succès!&quot;);</span>
+
+<span class="nc" id="L59">        } catch (Exception e) {</span>
+<span class="nc" id="L60">            e.printStackTrace();</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            if (entityManager.getTransaction().isActive()) {</span>
+<span class="nc" id="L62">                entityManager.getTransaction().rollback();</span>
+            }
+        } finally {
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L66">                entityManager.close();</span>
+            }
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            if (entityManagerFactory != null) {</span>
+<span class="nc" id="L69">                entityManagerFactory.close();</span>
+            }
+        }
+<span class="nc" id="L72">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -9,8 +9,8 @@ import java.util.Properties;
 
 public class EmailServiceImpl implements EmailService {
 
-    private final String username = "erradaoumaima@gmail.com";
-    private final String password = "uusn xrmv utnt unzf";
+    private  String username = "erradaoumaima@gmail.com";
+    private  String password = "uusn xrmv utnt unzf";
 
     public void sendEmail(String recipientEmail, String subject, String messageText) throws MessagingException {
 

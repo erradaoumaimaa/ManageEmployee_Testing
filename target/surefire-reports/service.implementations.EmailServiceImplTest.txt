@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: service.implementations.EmailServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.785 s <<< FAILURE! - in service.implementations.EmailServiceImplTest
-sendEmail_ValidInput_Success  Time elapsed: 0.898 s  <<< ERROR!
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.693 s <<< FAILURE! - in service.implementations.EmailServiceImplTest
+sendEmail_ValidInput_Success  Time elapsed: 1.862 s  <<< ERROR!
 org.mockito.exceptions.base.MockitoException: 
 
 Mockito cannot mock this class: class javax.mail.Transport.
@@ -23,9 +23,9 @@ OS version         : 10.0
 You are seeing this disclaimer because Mockito is configured to create inlined mocks.
 You can learn about inline mocks and their limitations under item #39 of the Mockito class javadoc.
 
-Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class javax.mail.Transport, class java.lang.Object, class javax.mail.Service, interface java.lang.AutoCloseable]
+Underlying exception : org.mockito.exceptions.base.MockitoException: Could not modify all classes [class javax.mail.Transport, class javax.mail.Service, class java.lang.Object, interface java.lang.AutoCloseable]
 	at service.implementations.EmailServiceImplTest.sendEmail_ValidInput_Success(EmailServiceImplTest.java:30)
-Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class javax.mail.Transport, class java.lang.Object, class javax.mail.Service, interface java.lang.AutoCloseable]
+Caused by: org.mockito.exceptions.base.MockitoException: Could not modify all classes [class javax.mail.Transport, class javax.mail.Service, class java.lang.Object, interface java.lang.AutoCloseable]
 	at service.implementations.EmailServiceImplTest.sendEmail_ValidInput_Success(EmailServiceImplTest.java:30)
 Caused by: java.lang.IllegalStateException: 
 

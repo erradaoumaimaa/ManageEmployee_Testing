@@ -40,29 +40,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public double calculateFamilyAllowance(int numberOfChildren, double salary) {
-        double familyAllowance = 0.0;
+        double allowance = 0;
 
         if (salary < 6000) {
-            if (numberOfChildren <= 3) {
-                familyAllowance = numberOfChildren * 300;  // For 1-3 children
-            } else if (numberOfChildren <= 6) {
-                familyAllowance = (3 * 300) + ((numberOfChildren - 3) * 150);  // For 4-6 children
-            }
-        } else if (salary >= 6000 && salary <= 8000) {
-            if (numberOfChildren <= 3) {
-                familyAllowance = numberOfChildren * 400;  // For 1-3 children
-            } else if (numberOfChildren <= 6) {
-                familyAllowance = (3 * 400) + ((numberOfChildren - 3) * 200);  // For 4-6 children
-            }
+            allowance = (Math.min(numberOfChildren, 3) * 300) + (Math.max(0, numberOfChildren - 3) * 150);
+        } else if (salary == 6000) {
+            allowance = (Math.min(numberOfChildren, 3) * 300) + (Math.max(0, numberOfChildren - 3) * 150);
         } else if (salary > 8000) {
-            if (numberOfChildren <= 3) {
-                familyAllowance = numberOfChildren * 400;  // Adjusted to match expected values
-            } else if (numberOfChildren <= 6) {
-                familyAllowance = (3 * 400) + ((numberOfChildren - 3) * 200);  // You may need to adjust values here
-            }
+            allowance = (Math.min(numberOfChildren, 3) * 200) + (Math.max(0, numberOfChildren - 3) * 110);
+        } else {
+            allowance = (Math.min(numberOfChildren, 3) * 200) + (Math.max(0, numberOfChildren - 3) * 100);
         }
 
-        return familyAllowance;
+        return allowance;
     }
 
     public void enterFamilyAllowanceForEmployee(Long employeeId, int numberOfChildren) {

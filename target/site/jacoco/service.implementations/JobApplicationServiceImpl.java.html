@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JobApplicationServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">service.implementations</a> &gt; <span class="el_source">JobApplicationServiceImpl.java</span></div><h1>JobApplicationServiceImpl.java</h1><pre class="source lang-java linenums">package service.implementations;
+
+import dao.interfaces.JobApplicationDao;
+import dao.interfaces.JobOfferDao;
+import entities.JobApplication;
+import entities.JobOffer;
+import service.interfaces.JobApplicationService;
+
+import java.util.Optional;
+
+public class JobApplicationServiceImpl implements JobApplicationService {
+
+    private final JobApplicationDao jobApplicationDao;
+    private final JobOfferDao jobOfferDao;
+
+<span class="fc" id="L16">    public JobApplicationServiceImpl(JobApplicationDao jobApplicationDao, JobOfferDao jobOfferDao) {</span>
+<span class="fc" id="L17">        this.jobApplicationDao = jobApplicationDao;</span>
+<span class="fc" id="L18">        this.jobOfferDao = jobOfferDao;</span>
+<span class="fc" id="L19">    }</span>
+
+    @Override
+    public void applyForJob(JobApplication application) {
+<span class="fc" id="L23">        Optional&lt;JobOffer&gt; jobOffer = jobOfferDao.findById(application.getJobOffer().getId());</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (jobOffer.isPresent()) {</span>
+<span class="fc" id="L25">            jobApplicationDao.save(application);</span>
+        } else {
+<span class="fc" id="L27">            throw new IllegalArgumentException(&quot;Job offer not found.&quot;);</span>
+        }
+<span class="fc" id="L29">    }</span>
+
+    @Override
+    public void acceptApplication(Long applicationId) {
+<span class="fc" id="L33">        Optional&lt;JobApplication&gt; application = jobApplicationDao.findById(applicationId);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (application.isPresent()) {</span>
+<span class="fc" id="L35">            JobApplication jobApplication = application.get();</span>
+<span class="fc" id="L36">            jobApplication.setStatus(&quot;Accepted&quot;);</span>
+<span class="fc" id="L37">            jobApplicationDao.update(jobApplication);</span>
+<span class="fc" id="L38">        } else {</span>
+<span class="fc" id="L39">            throw new IllegalArgumentException(&quot;Application not found.&quot;);</span>
+        }
+<span class="fc" id="L41">    }</span>
+
+    @Override
+    public void rejectApplication(Long applicationId) {
+<span class="fc" id="L45">        Optional&lt;JobApplication&gt; application = jobApplicationDao.findById(applicationId);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (application.isPresent()) {</span>
+<span class="fc" id="L47">            JobApplication jobApplication = application.get();</span>
+<span class="fc" id="L48">            jobApplication.setStatus(&quot;Rejected&quot;);</span>
+<span class="fc" id="L49">            jobApplicationDao.update(jobApplication);</span>
+<span class="fc" id="L50">        } else {</span>
+<span class="fc" id="L51">            throw new IllegalArgumentException(&quot;Application not found.&quot;);</span>
+        }
+<span class="fc" id="L53">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

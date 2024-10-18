@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenericDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">dao.implementations</a> &gt; <span class="el_source">GenericDAOImpl.java</span></div><h1>GenericDAOImpl.java</h1><pre class="source lang-java linenums">package dao.implementations;
+
+import dao.interfaces.GenericDAO;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Optional;
+
+public class GenericDAOImpl&lt;T&gt; implements GenericDAO&lt;T&gt; {
+    protected EntityManagerFactory entityManagerFactory;
+    private Class&lt;T&gt; entityClass;
+
+<span class="nc" id="L12">    public GenericDAOImpl(Class&lt;T&gt; entityClass) {</span>
+<span class="nc" id="L13">        this.entityClass = entityClass;</span>
+<span class="nc" id="L14">        this.entityManagerFactory = Persistence.createEntityManagerFactory(&quot;employee-management-unit&quot;);</span>
+<span class="nc" id="L15">    }</span>
+
+    @Override
+    public void save(T e) {
+<span class="nc" id="L19">        EntityManager entityManager = null;</span>
+<span class="nc" id="L20">        EntityTransaction transaction = null;</span>
+
+        try {
+<span class="nc" id="L23">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L24">            transaction = entityManager.getTransaction();</span>
+<span class="nc" id="L25">            transaction.begin();</span>
+<span class="nc" id="L26">            entityManager.persist(e);</span>
+<span class="nc" id="L27">            transaction.commit();</span>
+<span class="nc" id="L28">        } catch (Exception ex) {</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">            if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L30">                transaction.rollback();</span>
+            }
+<span class="nc" id="L32">            ex.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L34" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L35">                entityManager.close();</span>
+            }
+        }
+<span class="nc" id="L38">    }</span>
+
+    @Override
+    public Optional&lt;T&gt; findById(Long id) {
+<span class="nc" id="L42">        EntityManager entityManager = null;</span>
+<span class="nc" id="L43">        T entity = null;</span>
+
+        try {
+<span class="nc" id="L46">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L47">            entity = entityManager.find(entityClass, id);</span>
+<span class="nc" id="L48">        } catch (Exception e) {</span>
+<span class="nc" id="L49">            e.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L52">                entityManager.close();</span>
+            }
+        }
+
+<span class="nc" id="L56">        return Optional.ofNullable(entity);</span>
+    }
+
+    @Override
+    public List&lt;T&gt; findAll() {
+<span class="nc" id="L61">        EntityManager entityManager = null;</span>
+<span class="nc" id="L62">        List&lt;T&gt; results = null;</span>
+
+        try {
+<span class="nc" id="L65">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L66">            results = entityManager.createQuery(&quot;FROM &quot; + entityClass.getName(), entityClass).getResultList();</span>
+<span class="nc" id="L67">        } catch (Exception e) {</span>
+<span class="nc" id="L68">            e.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L70" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L71">                entityManager.close();</span>
+            }
+        }
+
+<span class="nc" id="L75">        return results;</span>
+    }
+
+    @Override
+    public void update(T entity) {
+<span class="nc" id="L80">        EntityManager entityManager = null;</span>
+<span class="nc" id="L81">        EntityTransaction transaction = null;</span>
+
+        try {
+<span class="nc" id="L84">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L85">            transaction = entityManager.getTransaction();</span>
+<span class="nc" id="L86">            transaction.begin();</span>
+<span class="nc" id="L87">            entityManager.merge(entity);</span>
+<span class="nc" id="L88">            transaction.commit();</span>
+<span class="nc" id="L89">        } catch (Exception e) {</span>
+<span class="nc bnc" id="L90" title="All 4 branches missed.">            if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L91">                transaction.rollback();</span>
+            }
+<span class="nc" id="L93">            e.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L96">                entityManager.close();</span>
+            }
+        }
+<span class="nc" id="L99">    }</span>
+
+    @Override
+    public void delete(T entity) {
+<span class="nc" id="L103">        EntityManager entityManager = null;</span>
+<span class="nc" id="L104">        EntityTransaction transaction = null;</span>
+
+        try {
+<span class="nc" id="L107">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L108">            transaction = entityManager.getTransaction();</span>
+<span class="nc" id="L109">            transaction.begin();</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));</span>
+<span class="nc" id="L111">            transaction.commit();</span>
+<span class="nc" id="L112">        } catch (Exception e) {</span>
+<span class="nc bnc" id="L113" title="All 4 branches missed.">            if (transaction != null &amp;&amp; transaction.isActive()) {</span>
+<span class="nc" id="L114">                transaction.rollback();</span>
+            }
+<span class="nc" id="L116">            e.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L119">                entityManager.close();</span>
+            }
+        }
+<span class="nc" id="L122">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

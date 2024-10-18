@@ -1,6 +1,7 @@
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\entities\Vacation.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\GenericDAOImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\JobOfferDaoImpl.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\JobApplicationServiceImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\EmailServiceImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\utils\JpaUtil.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\controller\EmployeeController.java
@@ -22,6 +23,10 @@ C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\interfaces\Em
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\EmployeeDAO.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\VacationServiceImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\GenericDAO.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\JobApplicationDaoImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\VacationDAO.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\entities\JobApplication.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\entities\Recruiter.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\JobApplicationDao.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\interfaces\JobApplicationService.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\entities\Admin.java

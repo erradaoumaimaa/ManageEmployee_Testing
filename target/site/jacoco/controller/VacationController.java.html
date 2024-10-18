@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VacationController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">controller</a> &gt; <span class="el_source">VacationController.java</span></div><h1>VacationController.java</h1><pre class="source lang-java linenums">package controller;
+
+import dao.implementations.EmployeeDAOImpl;
+import dao.implementations.VacationDAOImpl;
+import dao.interfaces.EmployeeDAO;
+import dao.interfaces.VacationDAO;
+import entities.Employee;
+import entities.Vacation;
+import service.implementations.EmailServiceImpl;
+import service.implementations.VacationServiceImpl;
+import service.interfaces.EmailService;
+import service.interfaces.VacationService;
+import service.interfaces.EmployeeService;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+@WebServlet(&quot;/vacation&quot;)
+@MultipartConfig
+<span class="nc" id="L31">public class VacationController extends HttpServlet {</span>
+
+    private VacationService vacationService;
+    private EmployeeDAO employeeDAO;
+    private VacationDAO vacationDAO;
+    private EmailService emailService;
+    @Override
+    public void init() throws ServletException {
+<span class="nc" id="L39">        employeeDAO = new EmployeeDAOImpl();</span>
+<span class="nc" id="L40">        vacationDAO = new VacationDAOImpl();</span>
+<span class="nc" id="L41">        emailService = new EmailServiceImpl();</span>
+<span class="nc" id="L42">        vacationService = new VacationServiceImpl(vacationDAO, employeeDAO, emailService);</span>
+<span class="nc" id="L43">    }</span>
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L47">        String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (action == null) {</span>
+<span class="nc" id="L50">            action = &quot;list&quot;;</span>
+        }
+
+<span class="nc bnc" id="L53" title="All 5 branches missed.">        switch (action) {</span>
+            case &quot;add&quot;:
+<span class="nc" id="L55">                showAddForm(request, response);</span>
+<span class="nc" id="L56">                break;</span>
+            case &quot;edit&quot;:
+//                showEditForm(request, response);
+<span class="nc" id="L59">                break;</span>
+            case &quot;approve&quot;:
+<span class="nc" id="L61">                approveVacation(request, response);</span>
+<span class="nc" id="L62">                break;</span>
+            case &quot;reject&quot;:
+<span class="nc" id="L64">                rejectVacation(request, response);</span>
+<span class="nc" id="L65">                break;</span>
+            case &quot;list&quot;:
+            default:
+//                listVacations(request, response);
+                break;
+        }
+<span class="nc" id="L71">    }</span>
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L75">        String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="nc bnc" id="L77" title="All 5 branches missed.">        switch (action) {</span>
+            case &quot;save&quot;:
+<span class="nc" id="L79">                saveVacation(request, response);</span>
+<span class="nc" id="L80">                break;</span>
+            case &quot;update&quot;:
+<span class="nc" id="L82">                updateVacation(request, response);</span>
+<span class="nc" id="L83">                break;</span>
+            case &quot;approve&quot;:
+<span class="nc" id="L85">                approveVacation(request, response);</span>
+<span class="nc" id="L86">                break;</span>
+            case &quot;reject&quot;:
+<span class="nc" id="L88">                rejectVacation(request, response);</span>
+<span class="nc" id="L89">                break;</span>
+            default:
+//                listVacations(request, response);
+                break;
+        }
+<span class="nc" id="L94">    }</span>
+
+    // Méthode pour lister les vacances
+//    private void listVacations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        List&lt;Vacation&gt; vacations = vacationService.findAllVacations();
+//        request.setAttribute(&quot;vacations&quot;, vacations);
+//        request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/vacationList.jsp&quot;).forward(request, response);
+//    }
+
+    // Méthode pour afficher le formulaire d'ajout de congé
+    private void showAddForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<span class="nc" id="L105">        request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/addVacation.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L106">    }</span>
+
+    // Méthode pour afficher le formulaire de modification de congé
+//    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        Long vacationId = Long.parseLong(request.getParameter(&quot;id&quot;));
+//        Vacation vacation = vacationService.findVacationById(vacationId);
+//        request.setAttribute(&quot;vacation&quot;, vacation);
+//        request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/editVacation.jsp&quot;).forward(request, response);
+//    }
+
+    // Méthode pour sauvegarder un congé
+    private void saveVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+<span class="nc" id="L119">            Long employeeId = Long.parseLong(request.getParameter(&quot;employeeId&quot;));</span>
+<span class="nc" id="L120">            LocalDate startDate = LocalDate.parse(request.getParameter(&quot;startDate&quot;));</span>
+<span class="nc" id="L121">            LocalDate endDate = LocalDate.parse(request.getParameter(&quot;endDate&quot;));</span>
+<span class="nc" id="L122">            String reason = request.getParameter(&quot;reason&quot;);</span>
+<span class="nc" id="L123">            Part document = request.getPart(&quot;document&quot;);</span>
+
+<span class="nc" id="L125">            Optional&lt;Employee&gt; optionalEmployee = employeeDAO.findById(employeeId);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">            if (optionalEmployee.isEmpty()) {</span>
+<span class="nc" id="L127">                throw new Exception(&quot;Employé non trouvé.&quot;);</span>
+            }
+
+<span class="nc" id="L130">            String documentPath = saveUploadedFile(document);</span>
+
+<span class="nc" id="L132">            Employee employee = optionalEmployee.get();</span>
+<span class="nc" id="L133">            Vacation vacation = new Vacation(employee, startDate, endDate, reason, documentPath);</span>
+
+<span class="nc" id="L135">            vacationService.requestVacation(employee, vacation);</span>
+
+<span class="nc" id="L137">            response.sendRedirect(request.getContextPath() + &quot;/vacation?action=list&quot;);</span>
+
+<span class="nc" id="L139">        } catch (Exception e) {</span>
+<span class="nc" id="L140">            e.printStackTrace();</span>
+<span class="nc" id="L141">            request.setAttribute(&quot;errorMessage&quot;, e.getMessage());</span>
+<span class="nc" id="L142">            request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/addVacation.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L143">        }</span>
+<span class="nc" id="L144">    }</span>
+
+    private void updateVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        try {
+//            Long vacationId = Long.parseLong(request.getParameter(&quot;id&quot;));
+//            LocalDate startDate = LocalDate.parse(request.getParameter(&quot;startDate&quot;));
+//            LocalDate endDate = LocalDate.parse(request.getParameter(&quot;endDate&quot;));
+//            String reason = request.getParameter(&quot;reason&quot;);
+//
+//            Vacation vacation = vacationService.findVacationById(vacationId);
+//            vacation.setStartDate(startDate);
+//            vacation.setEndDate(endDate);
+//            vacation.setReason(reason);
+//
+//            vacationService.updateVacation(vacation);
+//
+//            response.sendRedirect(request.getContextPath() + &quot;/vacation?action=list&quot;);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            request.setAttribute(&quot;errorMessage&quot;, e.getMessage());
+//            request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/editVacation.jsp&quot;).forward(request, response);
+//        }
+<span class="nc" id="L167">    }</span>
+
+    private void approveVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+<span class="nc" id="L171">            Long vacationId = Long.parseLong(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L172">            vacationService.approveVacation(vacationId);</span>
+<span class="nc" id="L173">            response.sendRedirect(request.getContextPath() + &quot;/vacation?action=list&quot;);</span>
+<span class="nc" id="L174">        } catch (Exception e) {</span>
+<span class="nc" id="L175">            e.printStackTrace();</span>
+<span class="nc" id="L176">            request.setAttribute(&quot;errorMessage&quot;, e.getMessage());</span>
+<span class="nc" id="L177">            request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/vacationList.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L178">        }</span>
+<span class="nc" id="L179">    }</span>
+
+    private void rejectVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+<span class="nc" id="L183">            Long vacationId = Long.parseLong(request.getParameter(&quot;id&quot;));</span>
+<span class="nc" id="L184">            vacationService.rejectVacation(vacationId);</span>
+<span class="nc" id="L185">            response.sendRedirect(request.getContextPath() + &quot;/vacation?action=list&quot;);</span>
+<span class="nc" id="L186">        } catch (Exception e) {</span>
+<span class="nc" id="L187">            e.printStackTrace();</span>
+<span class="nc" id="L188">            request.setAttribute(&quot;errorMessage&quot;, e.getMessage());</span>
+<span class="nc" id="L189">            request.getRequestDispatcher(&quot;/WEB-INF/views/vacation/vacationList.jsp&quot;).forward(request, response);</span>
+<span class="nc" id="L190">        }</span>
+<span class="nc" id="L191">    }</span>
+
+    private String saveUploadedFile(Part document) throws IOException {
+<span class="nc" id="L194">        String uploadDir = getServletContext().getRealPath(&quot;/&quot;) + &quot;uploads&quot;;</span>
+<span class="nc" id="L195">        Path uploadPath = Paths.get(uploadDir);</span>
+
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (!Files.exists(uploadPath)) {</span>
+<span class="nc" id="L198">            Files.createDirectories(uploadPath);</span>
+        }
+
+<span class="nc" id="L201">        String fileName = Paths.get(document.getSubmittedFileName()).getFileName().toString();</span>
+<span class="nc" id="L202">        Path filePath = uploadPath.resolve(fileName);</span>
+
+<span class="nc" id="L204">        document.write(filePath.toString());</span>
+
+<span class="nc" id="L206">        return filePath.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

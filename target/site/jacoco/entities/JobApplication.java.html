@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JobApplication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">entities</a> &gt; <span class="el_source">JobApplication.java</span></div><h1>JobApplication.java</h1><pre class="source lang-java linenums">package entities;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = &quot;applications&quot;)
+public class JobApplication {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = &quot;applicant_name&quot;, nullable = false)
+    private String applicantName;
+
+    @Column(name = &quot;applicant_email&quot;, nullable = false)
+    private String applicantEmail;
+
+    @Column(name = &quot;applicant_phone&quot;, nullable = false)
+    private String applicantPhone;
+
+    @Column(name = &quot;cv&quot;, nullable = false)
+    private String cv;
+
+    @Column(name = &quot;status&quot;, nullable = false)
+    private String status;
+
+
+    @ManyToOne
+    @JoinColumn(name = &quot;job_offer_id&quot;, nullable = false)
+    private JobOffer jobOffer;
+
+<span class="fc" id="L33">    public JobApplication() {}</span>
+
+<span class="fc" id="L35">    public JobApplication(String applicantName, String applicantEmail, String applicantPhone, String cv, JobOffer jobOffer, String status) {</span>
+<span class="fc" id="L36">        this.applicantName = applicantName;</span>
+<span class="fc" id="L37">        this.applicantEmail = applicantEmail;</span>
+<span class="fc" id="L38">        this.applicantPhone = applicantPhone;</span>
+<span class="fc" id="L39">        this.cv = cv;</span>
+<span class="fc" id="L40">        this.jobOffer = jobOffer;</span>
+<span class="fc" id="L41">        this.status = status;</span>
+<span class="fc" id="L42">    }</span>
+
+
+    // Getters and Setters
+    public Long getId() {
+<span class="nc" id="L47">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L51">        this.id = id;</span>
+<span class="fc" id="L52">    }</span>
+
+    public String getApplicantName() {
+<span class="nc" id="L55">        return applicantName;</span>
+    }
+
+    public void setApplicantName(String applicantName) {
+<span class="nc" id="L59">        this.applicantName = applicantName;</span>
+<span class="nc" id="L60">    }</span>
+
+    public String getApplicantEmail() {
+<span class="nc" id="L63">        return applicantEmail;</span>
+    }
+
+    public void setApplicantEmail(String applicantEmail) {
+<span class="nc" id="L67">        this.applicantEmail = applicantEmail;</span>
+<span class="nc" id="L68">    }</span>
+
+    public String getApplicantPhone() {
+<span class="nc" id="L71">        return applicantPhone;</span>
+    }
+
+    public void setApplicantPhone(String applicantPhone) {
+<span class="nc" id="L75">        this.applicantPhone = applicantPhone;</span>
+<span class="nc" id="L76">    }</span>
+
+    public String getCv() {
+<span class="nc" id="L79">        return cv;</span>
+    }
+
+    public void setCv(String cv) {
+<span class="nc" id="L83">        this.cv = cv;</span>
+<span class="nc" id="L84">    }</span>
+
+    public JobOffer getJobOffer() {
+<span class="fc" id="L87">        return jobOffer;</span>
+    }
+
+    public void setJobOffer(JobOffer jobOffer) {
+<span class="nc" id="L91">        this.jobOffer = jobOffer;</span>
+<span class="nc" id="L92">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L95">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="fc" id="L99">        this.status = status;</span>
+<span class="fc" id="L100">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

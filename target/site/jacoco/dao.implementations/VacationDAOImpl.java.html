@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VacationDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ManageEmployees</a> &gt; <a href="index.source.html" class="el_package">dao.implementations</a> &gt; <span class="el_source">VacationDAOImpl.java</span></div><h1>VacationDAOImpl.java</h1><pre class="source lang-java linenums">package dao.implementations;
+
+import dao.interfaces.VacationDAO;
+import entities.Employee;
+import entities.Vacation;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
+
+public class VacationDAOImpl extends GenericDAOImpl&lt;Vacation&gt; implements VacationDAO {
+
+    public VacationDAOImpl() {
+<span class="nc" id="L14">        super(Vacation.class);</span>
+<span class="nc" id="L15">    }</span>
+
+    @Override
+    public List&lt;Vacation&gt; findByEmployee(Employee employee) {
+<span class="nc" id="L19">        EntityManager entityManager = null;</span>
+<span class="nc" id="L20">        List&lt;Vacation&gt; vacations = null;</span>
+
+        try {
+<span class="nc" id="L23">            entityManager = entityManagerFactory.createEntityManager();</span>
+<span class="nc" id="L24">            TypedQuery&lt;Vacation&gt; query = entityManager.createQuery(</span>
+                    &quot;SELECT v FROM Vacation v WHERE v.employee = :employee&quot;, Vacation.class);
+<span class="nc" id="L26">            query.setParameter(&quot;employee&quot;, employee);</span>
+<span class="nc" id="L27">            vacations = query.getResultList();</span>
+<span class="nc" id="L28">        } catch (Exception e) {</span>
+<span class="nc" id="L29">            e.printStackTrace();</span>
+        } finally {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            if (entityManager != null) {</span>
+<span class="nc" id="L32">                entityManager.close();</span>
+            }
+        }
+
+<span class="nc" id="L36">        return vacations;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

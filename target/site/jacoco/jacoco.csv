@@ -1,0 +1,24 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+ManageEmployees,controller,EmployeeController,295,0,12,0,82,0,19,0,11,0
+ManageEmployees,controller,HomeController,10,0,0,0,3,0,2,0,2,0
+ManageEmployees,controller,VacationController,286,0,16,0,77,0,21,0,10,0
+ManageEmployees,entities,JobOffer,20,53,0,0,5,18,5,11,5,11
+ManageEmployees,entities,Employee,7,29,0,0,3,5,2,2,2,2
+ManageEmployees,entities,Admin,19,0,0,0,4,0,2,0,2,0
+ManageEmployees,entities,User,67,76,0,0,29,30,19,11,19,11
+ManageEmployees,entities,JobApplication,35,38,0,0,15,15,10,6,10,6
+ManageEmployees,entities,Recruiter,19,0,0,0,4,0,2,0,2,0
+ManageEmployees,entities,Vacation,21,52,0,0,9,22,6,10,6,10
+ManageEmployees,utils,JpaUtil,33,0,6,0,13,0,7,0,4,0
+ManageEmployees,dao.implementations,GenericDAOImpl,169,0,24,0,64,0,18,0,6,0
+ManageEmployees,dao.implementations,EmployeeDAOImpl,4,0,0,0,2,0,1,0,1,0
+ManageEmployees,dao.implementations,JobOfferDaoImpl,4,0,0,0,2,0,1,0,1,0
+ManageEmployees,dao.implementations,JobApplicationDaoImpl,4,0,0,0,2,0,1,0,1,0
+ManageEmployees,dao.implementations,VacationDAOImpl,34,0,2,0,13,0,3,0,2,0
+ManageEmployees,main,Main,124,0,6,0,40,0,5,0,2,0
+ManageEmployees,service.implementations,JobApplicationServiceImpl,0,82,0,6,0,25,0,7,0,4
+ManageEmployees,service.implementations,JobOfferServiceImpl,42,95,10,16,11,22,14,6,4,3
+ManageEmployees,service.implementations,EmployeeServiceImpl,22,121,8,14,4,32,9,10,1,7
+ManageEmployees,service.implementations,EmailServiceImpl.new Authenticator() {...},0,12,0,0,0,2,0,2,0,2
+ManageEmployees,service.implementations,EmailServiceImpl,3,62,0,0,2,14,0,2,0,2
+ManageEmployees,service.implementations,VacationServiceImpl,52,185,12,10,10,45,12,8,2,7
