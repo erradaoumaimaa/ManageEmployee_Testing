@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: service.implementations.EmployeeServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.305 s - in service.implementations.EmployeeServiceImplTest
+Tests run: 8, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 1.396 s <<< FAILURE! - in service.implementations.EmployeeServiceImplTest
+calculateFamilyAllowance_Exactly6000  Time elapsed: 0.016 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1200.0> but was: <1600.0>
+	at service.implementations.EmployeeServiceImplTest.calculateFamilyAllowance_Exactly6000(EmployeeServiceImplTest.java:65)
+
+calculateFamilyAllowance_Above8000  Time elapsed: 0.002 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <1450.0> but was: <1600.0>
+	at service.implementations.EmployeeServiceImplTest.calculateFamilyAllowance_Above8000(EmployeeServiceImplTest.java:59)
+
