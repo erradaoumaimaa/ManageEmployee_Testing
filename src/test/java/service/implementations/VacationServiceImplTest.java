@@ -90,7 +90,7 @@ class VacationServiceImplTest {
         int days = vacationService.calculateVacationDays(vacation);
 
         // Assert
-        assertEquals(5, days); // 1st to 5th includes both days
+        assertEquals(5, days);
     }
 
     @Test
