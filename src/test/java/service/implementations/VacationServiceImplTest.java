@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 import dao.interfaces.EmployeeDAO;
@@ -77,5 +78,33 @@ class VacationServiceImplTest {
         verify(vacationDAO).save(vacation);
         assertEquals("REJECTED", vacation.getStatus());
         verify(emailService).sendEmail(eq(employee.getEmail()), contains("Demande de congé refusée"), contains("votre demande de congé"));
+    }
+    @Test
+    void calculateVacationDays_ValidPeriod() {
+        // Arrange
+        Vacation vacation = new Vacation();
+        vacation.setStartDate(LocalDate.of(2024, 10, 1));
+        vacation.setEndDate(LocalDate.of(2024, 10, 5));
+
+        // Act
+        int days = vacationService.calculateVacationDays(vacation);
+
+        // Assert
+        assertEquals(5, days); // 1st to 5th includes both days
+    }
+
+    @Test
+    void calculateVacationDays_InvalidPeriod() {
+        // Arrange
+        Vacation vacation = new Vacation();
+        vacation.setStartDate(LocalDate.of(2024, 10, 6));
+        vacation.setEndDate(LocalDate.of(2024, 10, 1));
+
+        // Act & Assert
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            vacationService.calculateVacationDays(vacation);
+        });
+
+        assertEquals("La date de début doit être avant la date de fin.", exception.getMessage());
     }
 }
