@@ -28,8 +28,8 @@ class VacationServiceImplTest {
     void setUp() {
         vacationDAO = Mockito.mock(VacationDAO.class);
         employeeDAO = Mockito.mock(EmployeeDAO.class);
-        emailService = Mockito.mock(EmailService.class); // Ensure this is mocked
-        vacationService = new VacationServiceImpl(vacationDAO, employeeDAO, emailService); // Inject the mock here
+        emailService = Mockito.mock(EmailService.class);
+        vacationService = new VacationServiceImpl(vacationDAO, employeeDAO, emailService);
     }
 
     @Test

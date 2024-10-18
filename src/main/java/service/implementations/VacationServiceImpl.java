@@ -16,12 +16,12 @@ public class VacationServiceImpl implements VacationService {
 
     private final VacationDAO vacationDAO;
     private final EmployeeDAO employeeDAO;
-    private final EmailService emailService; // Ensure you have this variable
+    private final EmailService emailService;
 
     public VacationServiceImpl(VacationDAO vacationDAO, EmployeeDAO employeeDAO, EmailService emailService) {
         this.vacationDAO = vacationDAO;
         this.employeeDAO = employeeDAO;
-        this.emailService = emailService; // Initialize here
+        this.emailService = emailService;
     }
 
     @Override

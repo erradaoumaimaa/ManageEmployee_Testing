@@ -143,7 +143,6 @@ public class VacationController extends HttpServlet {
         }
     }
 
-    // Méthode pour mettre à jour un congé
     private void updateVacation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        try {
 //            Long vacationId = Long.parseLong(request.getParameter("id"));
