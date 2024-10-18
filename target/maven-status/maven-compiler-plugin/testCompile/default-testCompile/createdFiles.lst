@@ -1,3 +1,4 @@
+service\implementations\VacationServiceImplTest.class
+service\implementations\JobOfferServiceImplTest.class
 service\implementations\EmailServiceImplTest.class
 service\implementations\EmployeeServiceImplTest.class
-service\implementations\VacationServiceImplTest.class
