@@ -1,11 +1,13 @@
 package service.implementations;
 
+import service.interfaces.EmailService;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class EmailService {
+public class EmailServiceImpl implements EmailService {
 
     private final String username = "erradaoumaima@gmail.com";
     private final String password = "uusn xrmv utnt unzf";

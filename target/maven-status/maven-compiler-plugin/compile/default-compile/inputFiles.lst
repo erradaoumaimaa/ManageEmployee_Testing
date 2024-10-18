@@ -3,7 +3,7 @@ C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\interfaces\Va
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\GenericDAOImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\controller\VacationController.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\VacationDAOImpl.java
-C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\EmailService.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\EmailServiceImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\interfaces\EmployeeService.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\utils\JpaUtil.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\controller\EmployeeController.java
@@ -13,6 +13,7 @@ C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\main\Main.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\controller\HomeController.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\GenericDAO.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\implementations\EmployeeDAOImpl.java
+C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\interfaces\EmailService.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\entities\User.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\service\implementations\EmployeeServiceImpl.java
 C:\Users\user\Desktop\ManageEmployee_Testing\src\main\java\dao\interfaces\VacationDAO.java

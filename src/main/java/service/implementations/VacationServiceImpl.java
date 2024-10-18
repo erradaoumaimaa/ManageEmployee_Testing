@@ -1,6 +1,7 @@
 package service.implementations;
 
 import dao.interfaces.EmployeeDAO;
+import service.interfaces.EmailService;
 import service.interfaces.VacationService;
 import dao.interfaces.VacationDAO;
 import entities.Employee;
@@ -13,12 +14,14 @@ import java.util.Optional;
 
 public class VacationServiceImpl implements VacationService {
 
-    private VacationDAO vacationDAO;
-    private EmployeeDAO employeeDAO;
+    private final VacationDAO vacationDAO;
+    private final EmployeeDAO employeeDAO;
+    private final EmailService emailService; // Ensure you have this variable
 
-    public VacationServiceImpl(VacationDAO vacationDAO, EmployeeDAO employeeDAO) {
+    public VacationServiceImpl(VacationDAO vacationDAO, EmployeeDAO employeeDAO, EmailService emailService) {
         this.vacationDAO = vacationDAO;
         this.employeeDAO = employeeDAO;
+        this.emailService = emailService; // Initialize here
     }
 
     @Override
@@ -81,7 +84,6 @@ public class VacationServiceImpl implements VacationService {
         return vacationDAO.findByEmployee(employee);
     }
 
-    @Override
     public void approveVacation(Long vacationId) throws Exception {
         Optional<Vacation> optionalVacation = vacationDAO.findById(vacationId);
 
@@ -93,7 +95,6 @@ public class VacationServiceImpl implements VacationService {
         vacation.setStatus("APPROVED");
         vacationDAO.save(vacation);
 
-        EmailService emailService = new EmailService();
         String subject = "Demande de congé approuvée";
         String messageText = "Bonjour " + vacation.getEmployee().getName() +
                 ", votre demande de congé du " + vacation.getStartDate() +
@@ -101,7 +102,6 @@ public class VacationServiceImpl implements VacationService {
         emailService.sendEmail(vacation.getEmployee().getEmail(), subject, messageText);
     }
 
-    @Override
     public void rejectVacation(Long vacationId) throws Exception {
         Optional<Vacation> optionalVacation = vacationDAO.findById(vacationId);
 
@@ -113,12 +113,10 @@ public class VacationServiceImpl implements VacationService {
         vacation.setStatus("REJECTED");
         vacationDAO.save(vacation);
 
-        EmailService emailService = new EmailService();
         String subject = "Demande de congé refusée";
         String messageText = "Bonjour " + vacation.getEmployee().getName() +
                 ", votre demande de congé du " + vacation.getStartDate() +
                 " au " + vacation.getEndDate() + " a été refusée.";
         emailService.sendEmail(vacation.getEmployee().getEmail(), subject, messageText);
     }
-
 }

@@ -6,7 +6,9 @@ import dao.interfaces.EmployeeDAO;
 import dao.interfaces.VacationDAO;
 import entities.Employee;
 import entities.Vacation;
+import service.implementations.EmailServiceImpl;
 import service.implementations.VacationServiceImpl;
+import service.interfaces.EmailService;
 import service.interfaces.VacationService;
 import service.interfaces.EmployeeService;
 
@@ -31,12 +33,13 @@ public class VacationController extends HttpServlet {
     private VacationService vacationService;
     private EmployeeDAO employeeDAO;
     private VacationDAO vacationDAO;
-
+    private EmailService emailService;
     @Override
     public void init() throws ServletException {
         employeeDAO = new EmployeeDAOImpl();
         vacationDAO = new VacationDAOImpl();
-        vacationService = new VacationServiceImpl(vacationDAO, employeeDAO);
+        emailService = new EmailServiceImpl();
+        vacationService = new VacationServiceImpl(vacationDAO, employeeDAO, emailService);
     }
 
     @Override
@@ -44,7 +47,7 @@ public class VacationController extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action == null) {
-            action = "list"; // Action par défaut pour afficher la liste
+            action = "list";
         }
 
         switch (action) {
